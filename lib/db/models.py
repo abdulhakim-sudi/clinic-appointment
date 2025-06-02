@@ -1,6 +1,8 @@
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
+
+
 
 # Database setup: SQLite file clinic.db in your project folder
 engine = create_engine('sqlite:///clinic.db', echo=False)
