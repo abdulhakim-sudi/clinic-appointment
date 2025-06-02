@@ -23,3 +23,11 @@ def add_patient():
     new_patient = Patient(name=name)
     session.add(new_patient)
     session.commit()
+def list_doctors():
+    doctors = session.query(Doctor).all()
+    if not doctors:
+        print("No doctors found.")
+        return
+    print("\nDoctors:")
+    for doctor in doctors:
+        print(f"{doctor.id}: {doctor.name}")
