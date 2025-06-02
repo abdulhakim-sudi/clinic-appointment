@@ -31,3 +31,11 @@ def list_doctors():
     print("\nDoctors:")
     for doctor in doctors:
         print(f"{doctor.id}: {doctor.name}")
+def list_patients():
+    patients = session.query(Patient).all()
+    if not patients:
+        print("No patients found.")
+        return
+    print("\nPatients:")
+    for patient in patients:
+        print(f"{patient.id}: {patient.name}")
