@@ -1,43 +1,24 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship, declarative_base
-from datetime import datetime
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# Database setup: SQLite file clinic.db in your project folder
+engine = create_engine('sqlite:///clinic.db', echo=False)
+Session = sessionmaker(bind=engine)
+session = Session()
 
 Base = declarative_base()
 
-class Patient(Base):
-    __tablename__ = 'patients'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    age = Column(Integer)
-
-    appointments = relationship('Appointment', back_populates='patient')
-
-    def __repr__(self):
-        return f"<Patient {self.name}, Age: {self.age}>"
-
 class Doctor(Base):
     __tablename__ = 'doctors'
-
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    specialization = Column(String)
+    name = Column(String, nullable=False)
 
-    appointments = relationship('Appointment', back_populates='doctor')
-
-    def __repr__(self):
-        return f"<Doctor {self.name}, Spec: {self.specialization}>"
-
-class Appointment(Base):
-    __tablename__ = 'appointments'
-
+class Patient(Base):
+    __tablename__ = 'patients'
     id = Column(Integer, primary_key=True)
-    patient_id = Column(Integer, ForeignKey('patients.id'))
-    doctor_id = Column(Integer, ForeignKey('doctors.id'))
-    appointment_time = Column(DateTime, default=datetime.utcnow)
+    name = Column(String, nullable=False)
 
-    patient = relationship('Patient', back_populates='appointments')
-    doctor = relationship('Doctor', back_populates='appointments')
-
-    def __repr__(self):
-        return f"<Appointment {self.appointment_time} | Patient {self.patient_id} with Doctor {self.doctor_id}>"
+# Create tables (run once or whenever you update models)
+def create_tables():
+    Base.metadata.create_all(engine)
