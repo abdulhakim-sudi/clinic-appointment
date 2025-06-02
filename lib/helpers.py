@@ -20,3 +20,6 @@ def add_patient():
     if not name:
         print("Name cannot be empty.")
         return
+    new_patient = Patient(name=name)
+    session.add(new_patient)
+    session.commit()
