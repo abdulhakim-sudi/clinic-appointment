@@ -13,3 +13,6 @@ def add_doctor():
     session.add(new_doctor)
     session.commit()
     print(f"Doctor '{name}' added successfully!")
+def add_patient():
+    """Add a new patient to the database."""
+    pass
