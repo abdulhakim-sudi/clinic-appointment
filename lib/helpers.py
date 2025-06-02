@@ -9,3 +9,6 @@ def add_doctor():
     if not name:
         print("Name cannot be empty.")
         return
+    new_doctor = Doctor(name=name)
+    session.add(new_doctor)
+    session.commit()
