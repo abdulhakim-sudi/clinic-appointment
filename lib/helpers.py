@@ -16,3 +16,7 @@ def add_doctor():
 def add_patient():
     """Add a new patient to the database."""
     pass
+    name = input("Enter patient name: ").strip()
+    if not name:
+        print("Name cannot be empty.")
+        return
