@@ -22,3 +22,13 @@ class Patient(Base):
 # Create tables (run once or whenever you update models)
 def create_tables():
     Base.metadata.create_all(engine)
+class Appointment(Base):
+    __tablename__ = 'appointments'
+
+    id = Column(Integer, primary_key=True)
+    patient_id = Column(Integer, ForeignKey('patients.id'))
+    doctor_id = Column(Integer, ForeignKey('doctors.id'))
+    date = Column(String)
+
+    patient = relationship("Patient", backref="appointments")
+    doctor = relationship("Doctor", backref="appointments")
