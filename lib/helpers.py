@@ -12,3 +12,4 @@ def add_doctor():
     new_doctor = Doctor(name=name)
     session.add(new_doctor)
     session.commit()
+    print(f"Doctor '{name}' added successfully!")
